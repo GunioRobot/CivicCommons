@@ -25,8 +25,6 @@ gem 'remotipart', :git => 'git://github.com/CivicCommons/remotipart.git', :branc
 
 gem 'whenever', :require => false
 
-gem 'devise', '1.1.2'
-
 gem 'shoulda'
 gem 'paperclip', "2.3.8"
 gem 'delayed_paperclip'
@@ -69,3 +67,12 @@ group :development, :test do
   gem 'steak'
   gem "capybara", "~> 0.4.0"
 end
+
+gem 'devise', '~>1.2', :git => 'git://github.com/plataformatec/devise.git'
+gem "oa-oauth", :require => "omniauth/oauth"
+
+gem 'shoulda'
+gem 'paperclip', "2.3.8"
+gem 'delayed_paperclip'
+gem 'aws-s3'
+gem 'nokogiri'

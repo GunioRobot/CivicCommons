@@ -3,9 +3,10 @@
     = surround "Logged in as ", "." do
       = current_person.email
     = precede "Not you? " do
-      = link_to "Logout", destroy_person_session_url
+      = link_to "Logout", destroy_person_session_path
   - else
     %p
       %a
-        = link_to "Log in to your account", secure_new_person_session_url, :class => 'button login-link'
-    = link_to "Sign Up", secure_new_person_registration_url, :class => 'createacct-link'
+        =link_to "Log in to your account", new_person_session_path, class: 'button login-link'
+    = link_to "Sign Up", new_person_registration_path, :class => 'createacct-link'
+    = link_to "Sign in with Facebook", person_omniauth_authorize_path(:facebook), :class => 'createacct-link'
