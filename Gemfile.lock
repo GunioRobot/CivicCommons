@@ -256,6 +256,10 @@ GEM
       addressable (>= 2.2.2)
       crack (>= 0.1.7)
     whenever (0.6.6)
+    webrat (0.7.3)
+      nokogiri (>= 1.2.0)
+      rack (>= 1.0)
+      rack-test (>= 0.5.3)
       aaronh-chronic (>= 0.3.9)
       activesupport (>= 2.3.4)
     will_paginate (3.0.pre2)
@@ -307,5 +311,6 @@ DEPENDENCIES
   sqlite3-ruby
   steak
   webmock
+  webrat (~> 0.7.3)
   whenever
   will_paginate (~> 3.0.pre2)
