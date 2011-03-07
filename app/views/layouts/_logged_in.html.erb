@@ -7,6 +7,5 @@
     <%= link_to_settings(current_person).html_safe %>
     <br />
     <%= link_to "Logout", destroy_person_session_path, :class => 'user-link' %>
-    <%= link_to "Link my account with Facebook", person_omniauth_authorize_path(:facebook), :class => 'createacct-link facebook-auth' unless current_person.facebook_authenticated?%>
   </p>
 </div>
