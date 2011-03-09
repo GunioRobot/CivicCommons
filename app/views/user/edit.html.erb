@@ -46,7 +46,7 @@
           <% if person.object.facebook_authenticated? %>
             <%= link_to "Unlink Account", '' %>
           <% else %>
-            <%= link_to("Connect with Facebook", person_omniauth_authorize_path(:facebook)) if current_person == person.object %>
+            <%= link_to("Connect with Facebook", person_omniauth_authorize_path(:facebook), :class => 'connectacct-link facebook-auth' ) if current_person == person.object %>
           <% end %>
         </div>
        </fieldset>

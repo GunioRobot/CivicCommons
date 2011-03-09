@@ -180,7 +180,7 @@ Devise.setup do |config|
   config.omniauth :facebook, 
     Civiccommons::Config.facebook['app_id'], 
     Civiccommons::Config.facebook['app_secret'], 
-    :scope => 'email'
+    :scope => 'email', :display => "popup"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
