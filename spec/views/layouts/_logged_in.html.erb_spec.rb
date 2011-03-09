@@ -19,11 +19,8 @@ describe "layouts/_logged_in.html.erb" do
   end
 
   it "should have logout link" do
-    # Webrat.inspect.should == ''
     render
     rendered.should contain 'Logout'
-    # rendered.assert_have_selector 'a.user-link'
-    # rendered.have_tag('a.user-link').should be_true
-    # rendered.should have_tag 'a'
+    rendered.should have_selector 'a.user-link'
   end
 end
