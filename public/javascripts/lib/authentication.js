@@ -8,11 +8,9 @@ jQuery(function ($) {
   }
 
   $(document).ready(function() {
-    // $('a.createacct-link.facebook-auth').colorbox({ height:500});
-    $("a.createacct-link.facebook-auth, a.connectacct-link.facebook-auth").click(function(e) {
+    $("a.createacct-link.facebook-auth, a.connectacct-link.facebook-auth").live('click', function(e) {
       popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "authPopup");
       e.stopPropagation(); return false;
-    });
-    
+    });    
   });
 });

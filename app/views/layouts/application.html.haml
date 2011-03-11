@@ -11,13 +11,13 @@
     = javascript_include_tag 'lib/rails'
     = javascript_include_tag 'lib/master'
     = javascript_include_tag 'lib/chosen_issues'
-    = javascript_include_tag 'lib/authentication'
     = javascript_include_tag 'vendor/jquery.colorbox-min'
     = javascript_include_tag 'vendor/jquery.form'
     = javascript_include_tag 'vendor/jquery.remotipart'
     = javascript_include_tag 'vendor/jquery.loadmask.min'
     = javascript_include_tag 'vendor/jquery.hashchange.min'
     = javascript_include_tag 'vendor/jquery.easytabs'
+    = javascript_include_tag 'lib/authentication'
     :plain
       <!--[if gte IE 7]><!-->
       <link media="screen, projection" rel="stylesheet" href="/stylesheets/screen.css" type="text/css" />
@@ -132,3 +132,4 @@
             %a{ :href => 'http://www.youtube.com/user/neociviccommons', :id => 'youtube'} YouTube
           %li
             %a{ :href => '#', :id => 'rss'} RSS
+    = render :partial => '/shared/suggest_facebook_auth.js' if signed_in? && !current_person.declined_fb_auth? && !current_person.facebook_authenticated?
