@@ -132,4 +132,4 @@
             %a{ :href => 'http://www.youtube.com/user/neociviccommons', :id => 'youtube'} YouTube
           %li
             %a{ :href => '#', :id => 'rss'} RSS
-    = render :partial => '/shared/suggest_facebook_auth.js' if signed_in? && !current_person.declined_fb_auth? && !current_person.facebook_authenticated?
+= render :partial => '/shared/suggest_facebook_auth.js' if signed_in? && !current_person.declined_fb_auth? && !current_person.facebook_authenticated?
