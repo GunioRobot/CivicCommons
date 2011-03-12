@@ -1,11 +1,12 @@
 <script type='text/javascript'>
   $(document).ready(function() {
-<<<<<<< HEAD
-    $.colorbox({opacity:0.5, html:'<%= escape_javascript(render :partial => "/shared/suggest_facebook_auth.html") %>',overlayClose:false})
-=======
     setTimeout(function(){ 
         $.colorbox({opacity:0.5, html:'<%= escape_javascript(render :partial => "/shared/suggest_facebook_auth.html") %>'})
+        $('a.decline-facebook-auth, div#cboxClose').click(function(){
+          $.post('<%= decline_fb_auth_path %>')
+          $.colorbox.close();
+          return false;
+        })
       }, 1000);
->>>>>>> e53c4f2... Added interstitial modal facebook .
   });
 </script>

@@ -31,6 +31,8 @@ Civiccommons::Application.routes.draw do
   end
 
 #Custom Matchers
+  #authentication
+  post '/authentication/decline_fb_auth',              to: 'authentication#decline_fb_auth', as: 'decline_fb_auth'
   #Contributions
   post '/contributions/create_confirmed_contribution', to: 'contributions#create_confirmed_contribution',    as: 'create_confirmed_contribution'
   delete '/contributions/moderate/:id',                to: 'contributions#moderate_contribution',            as: 'moderate_contribution'
