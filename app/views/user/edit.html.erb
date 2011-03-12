@@ -42,11 +42,10 @@
        </fieldset>
        <fieldset class="form-group">
         <div class="form-block facebook-auth">
-          <%= person.label :Facebook, 'Facebook Connect' %>
           <% if person.object.facebook_authenticated? %>
             <%= link_to "Unlink Account", '' %>
-          <% else %>
-            <%= link_to("Connect with Facebook", person_omniauth_authorize_path(:facebook), :class => 'connectacct-link facebook-auth' ) if current_person == person.object %>
+          <% else %>          
+            <%= link_to("Connect with Facebook", person_omniauth_authorize_path(:facebook), :class => 'connectacct-link facebook-auth', :id => 'facebook-connect' ) if current_person == person.object %>
           <% end %>
         </div>
        </fieldset>

@@ -179,12 +179,12 @@ input.textbox, textarea, input.textbox.small {
 font-family: Helvetica, Arial, sans-serif;
 font-size: 1em;
 border: 1px solid #ccc;
-background: #fff;
+/* background: #fff; */
 padding: 5px;
 width: 448px;
 }
 input[type="file"] {
-background: none;
+/* background: none; */
 border: none;
 }
 input.checkbox { margin-left:160px; }
@@ -253,7 +253,7 @@ font-size: 12px;
 .input-with-options label input.link {padding: 3px;}
 .input-with-options textarea {height: 100px;}
 a.cancel {font-weight: normal;}
-.form-block {margin-bottom: 8px;}
+.form-block {margin-bottom: 10px;}
 .form-group {margin-bottom: 30px;}
 .form-group .related {margin-left: 80px;}
 .form-group .related input.textbox {width: 400px;}
@@ -297,6 +297,22 @@ float: left;
 margin-right: 5px;
 }
 /* .general-aside {margin-bottom: 1em;} */
+
+/*- Facebook Connect in Settings ----------*/
+
+a#facebook-connect {
+background: url(/images/fb_connect.png) no-repeat 0 0;
+display: block;
+float: left;
+height: 32px;
+margin-left: 160px;
+outline: none;
+text-indent: -9999px;
+width: 257px;
+}
+a#facebook-connect:hover, a#facebook-connect:focus {background-position: bottom;}
+fieldset.footer {margin-bottom: 2em;}
+
 
 /*-----------------------------------------------
 =Modular Element Styles
@@ -593,35 +609,43 @@ text-transform: uppercase;
 color: #fff;
 }
 #header #header-utility {
+background: #ededed;
+border: 1px solid #c3c3c3;
 float: right;
-width: 290px;
+margin: 15px 0;
+padding: 10px 15px;
+width: 260px;
+-moz-border-radius: 8px;
+-webkit-border-radius: 8px;
+border-radius: 8px;
+-moz-box-shadow: 0 1px 1px rgba(0,0,0,.2) inset;
+-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.2) inset;
+box-shadow: 0 1px 1px rgba(0,0,0,.2) inset;
 }
 #login-status {
-background: #fff url(/images/simple_grad.gif) repeat-x bottom;
-border: 1px solid #ccc;
-border-top: none;
-padding: 10px;
-position: relative;
-z-index: 2;
--webkit-border-radius: 0 0 8px 8px;
--moz-border-radius: 0 0 8px 8px;
-border-radius: 0 0 8px 8px;
--webkit-box-shadow: 0px 2px 3px rgba(0,0,0,.2);
--moz-box-shadow: 0px 2px 3px rgba(0,0,0,.2);
-box-shadow: 0px 2px 3px rgba(0,0,0,.2);
+border-bottom: 1px solid #b8b8b8;
+padding-bottom: 10px;
 }
-#login-status a.user-link { font-size:11px; text-transform:uppercase; }
+#login-status a.user-link {
+font-size: 12px;
+text-transform: none;
+}
 div.signed-out div.offset-2 {
 padding-left: 0;
-text-align: center;
 }
 div#user p {margin-bottom: .7em;}
+.signed-out div#user p {margin-bottom: .3em;}
 *:first-child+html div.signed-out div#user {display: inline;}
-a.createacct-link {
-background: url(/images/add.png) no-repeat 0 2px;
-padding-left: 18px;
-text-decoration: none;
+a.fb-login-btn {
+background: url(/images/fb_login.png) no-repeat 0 0;
+display: block;
+height: 27px;
+outline: none;
+text-indent: -9999px;
+width: 176px;
 }
+a.fb-login-btn:hover, a.fb-login-btn:focus {background-position: bottom;}
+a.createacct-link {}
 div.login-actions p {
 font-size: .75em;
 margin-bottom: .2em;
@@ -631,15 +655,14 @@ div#ajax-login-container {
 padding: 20px;
 }
 .important {
-background: #dbedf5;
-border-left: 1px solid #d9dade;
-border-right: 1px solid #d9dade;
-margin-top: -5px;
-padding: 20px 10px 15px;
-position: relative;
-z-index: 1;
+border-top: 1px solid #fff;
+padding-top: 10px;
 }
 .important a {font-weight: bold;}
+.build-commons {
+background: url(/images/build_commons.png) no-repeat 0 0;
+padding: 5px 0 5px 27px;
+}
 #login-status h4, .important p {margin-bottom: .1em;}
 #header #header-utility #login-status div.offset-2 {border: none;}
 /*
@@ -1577,6 +1600,8 @@ div.blog img.callout {float: left; width: 32px; height: 32px; padding-right: 5px
 .blog_inner, .post_info {padding-left: 40px;}
 .blog_inner a, .post_info a {color: #0099FF;}
 .post_info {padding-top: 20px;}
+
+
 /*-----------------------------------------------
 =Self Clearing Floats
 -----------------------------------------------*/
