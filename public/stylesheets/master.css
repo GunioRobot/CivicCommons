@@ -300,7 +300,7 @@ margin-right: 5px;
 
 /*- Facebook Connect in Settings ----------*/
 
-a#facebook-connect {
+a.connectacct-link {
 background: url(/images/fb_connect.png) no-repeat 0 0;
 display: block;
 float: left;
@@ -310,9 +310,24 @@ outline: none;
 text-indent: -9999px;
 width: 257px;
 }
-a#facebook-connect:hover, a#facebook-connect:focus {background-position: bottom;}
+a.connectacct-link.disconnect-fb {background-image: url(/images/fb_disconnect.png);}
+a.connectacct-link:hover, a.connectacct-link:focus, a.connectacct-link.disconnect-fb:hover, a.connectacct-link.disconnect-fb:focus {background-position: bottom;}
 fieldset.footer {margin-bottom: 2em;}
 
+/*- Facebook Modal Styles ----------*/
+
+div.suggest-auth {padding: 25px 20px;}
+div.suggest-auth h2 {
+border-bottom: 1px solid #d6d6d6;
+margin-bottom: 8px;
+padding-bottom: 8px;
+}
+div.suggest-auth a.connectacct-link {
+float: left;
+margin-left: 0;
+}
+div.suggest-auth a.decline-facebook-auth {float: right;}
+p.fb-cnct-links {padding-top: 5px;}
 
 /*-----------------------------------------------
 =Modular Element Styles
@@ -1606,7 +1621,7 @@ div.blog img.callout {float: left; width: 32px; height: 32px; padding-right: 5px
 =Self Clearing Floats
 -----------------------------------------------*/
 
-#wrapper:after, #header:after, .feature:after, div.tab-strip ul:after, div.tab-area:after, #nav:after, #header-wrapper:after, .section:after, .content-container:after, .photobank:after, div.three-col:after, div.three-col-sm:after, .form-block:after, .offset-1:after, .offset-2:after, form:after, .convo-utility:after, ul.social-media:after, div.two-col:after, div.two-col-sm:after, .conversations:after, div.convo-popup:after, .pagination p:after, .convo-create:after {
+#wrapper:after, #header:after, .feature:after, div.tab-strip ul:after, div.tab-area:after, #nav:after, #header-wrapper:after, .section:after, .content-container:after, .photobank:after, div.three-col:after, div.three-col-sm:after, .form-block:after, .offset-1:after, .offset-2:after, form:after, .convo-utility:after, ul.social-media:after, div.two-col:after, div.two-col-sm:after, .conversations:after, div.convo-popup:after, .pagination p:after, .convo-create:after, p.fb-cnct-links:after {
 content: ".";
 display: block;
 height: 0;
@@ -1635,11 +1650,11 @@ visibility: hidden;
 .global-warning a { color:#fff; font-weight:bold; }
 
 /* IE6 */
-* html #wrapper, * html #header, * html .feature, * html div.tab-strip ul, * html div.tab-area, * html #nav, * html #header-wrapper, * html .section, * html .content-container, * html .photobank, * html div.three-col, * html div.three-col-sm, * html .form-block, * html .offset-1, * html .offset-2, * html form, * html .convo-utility, * html ul.social-media, * html div.two-col, * html div.two-col-sm, * html .conversations, * html div.convo-popup, * html .pagination p, * html #header-utility, * html .convo-create {zoom: 1;}
+* html #wrapper, * html #header, * html .feature, * html div.tab-strip ul, * html div.tab-area, * html #nav, * html #header-wrapper, * html .section, * html .content-container, * html .photobank, * html div.three-col, * html div.three-col-sm, * html .form-block, * html .offset-1, * html .offset-2, * html form, * html .convo-utility, * html ul.social-media, * html div.two-col, * html div.two-col-sm, * html .conversations, * html div.convo-popup, * html .pagination p, * html #header-utility, * html .convo-create, * html p.fb-cnct-links {zoom: 1;}
 * html .group {zoom: 1;}
 
 /* IE7 */
-*:first-child+html #wrapper, *:first-child+html #header, *:first-child+html .feature, *:first-child+html div.tab-strip ul, *:first-child+html div.tab-area, *:first-child+html #nav, #header-wrapper, *:first-child+html .section, *:first-child+html .content-container, *:first-child+html .photobank, *:first-child+html div.three-col, *:first-child+html div.three-col-sm, *:first-child+html .form-block, *:first-child+html .offset-1, *:first-child+html .offset-2, *:first-child+html form, *:first-child+html .convo-utility, *:first-child+html ul.social-media, *:first-child+html div.two-col, *:first-child+html div.two-col-sm, *:first-child+html .conversations, *:first-child+html div.convo-popup, *:first-child+html .pagination p, *:first-child+html #header-utility, *:first-child+html .convo-create {zoom: 1;}
+*:first-child+html #wrapper, *:first-child+html #header, *:first-child+html .feature, *:first-child+html div.tab-strip ul, *:first-child+html div.tab-area, *:first-child+html #nav, #header-wrapper, *:first-child+html .section, *:first-child+html .content-container, *:first-child+html .photobank, *:first-child+html div.three-col, *:first-child+html div.three-col-sm, *:first-child+html .form-block, *:first-child+html .offset-1, *:first-child+html .offset-2, *:first-child+html form, *:first-child+html .convo-utility, *:first-child+html ul.social-media, *:first-child+html div.two-col, *:first-child+html div.two-col-sm, *:first-child+html .conversations, *:first-child+html div.convo-popup, *:first-child+html .pagination p, *:first-child+html #header-utility, *:first-child+html .convo-create, *:first-child+html p.fb-cnct-links {zoom: 1;}
 *:first-child+html .group {zoom: 1;}
 
 /*-----------------------------------------------
