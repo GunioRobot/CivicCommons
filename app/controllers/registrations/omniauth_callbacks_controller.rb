@@ -40,9 +40,11 @@ private
     render_js_redirect_to redirect_location(:person, authentication.person)
   end
   
-  def render_js_redirect_to(path = '')
+  def render_js_redirect_to(path = '', options={})
+    text = options.delete(:text) || 'Redirecting back to CivicCommons....'
+    
     # we can also use this: window.opener.location.reload(true);
-    render :text => "Redirecting back to CivicCommons....<script type='text/javascript'>
+    render :text => "#{text}<script type='text/javascript'>
       if(window.opener) {
         window.opener.onunload = function(){
             window.close();
