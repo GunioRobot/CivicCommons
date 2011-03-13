@@ -319,14 +319,18 @@ fieldset.footer {margin-bottom: 2em;}
 div.suggest-auth {padding: 25px 20px;}
 div.suggest-auth h2 {
 border-bottom: 1px solid #d6d6d6;
-margin-bottom: 8px;
-padding-bottom: 8px;
+margin-bottom: 12px;
+padding-bottom: 12px;
 }
 div.suggest-auth a.connectacct-link {
 float: left;
 margin-left: 0;
 }
-div.suggest-auth a.decline-facebook-auth {float: right;}
+div.suggest-auth a.decline-facebook-auth {
+display: block;
+float: right;
+padding-top: 4px;
+}
 p.fb-cnct-links {padding-top: 5px;}
 
 /*-----------------------------------------------
