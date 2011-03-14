@@ -6,6 +6,15 @@ describe AuthenticationController do
     it "recognizes and generates #decline_fb_auth" do
       { post: "/authentication/decline_fb_auth" }.should route_to(controller: "authentication", action: "decline_fb_auth")
     end
+    
+    it "recognizes and generates GET #conflicting_email" do
+      { get: "/authentication/conflicting_email" }.should route_to(controller: "authentication", action: "conflicting_email")
+    end
+
+    it "recognizes and generates PUT #conflicting_email" do
+      { put: "/authentication/conflicting_email" }.should route_to(controller: "authentication", action: "update_conflicting_email")
+    end
+
   end
 
 end

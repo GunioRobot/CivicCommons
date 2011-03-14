@@ -61,4 +61,18 @@ describe Authentication do
       end
     end
   end
+
+  context "email_from_auth_hash" do
+    it "should return the email if it exists in the hash" do
+      hash = {"extra"=>{"user_hash"=>{ "email"=>"johnd@test.com"}}}
+      Authentication.email_from_auth_hash(hash).should == 'johnd@test.com'
+    end
+    it "should return nil if it doesn't exist in the hash" do
+      Authentication.email_from_auth_hash({}).should be_nil
+    end
+    it "should return nil if nil is put there" do
+      Authentication.email_from_auth_hash(nil).should be_nil
+    end
+    
+  end
 end

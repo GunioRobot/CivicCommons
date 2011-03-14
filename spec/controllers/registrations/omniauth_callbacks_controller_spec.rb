@@ -1,11 +1,28 @@
 require 'spec_helper'
 
 describe Registrations::OmniauthCallbacksController, "handle facebook authentication callback" do
+  
+  def response_should_js_redirect_to(path)
+    response.should contain "window.opener.location = '#{path}'"
+  end
+  
+  def response_should_js_conflicting_email_prompt
+    response.should contain "window.opener.$.colorbox({href:'#{conflicting_email_path}'"
+  end
+  
   def stub_successful_auth
     # inspired by https://gist.github.com/792715
     # See https://github.com/plataformatec/devise/issues/closed#issue/608
     request.env["devise.mapping"] = Devise.mappings[:person]
-    env = { "omniauth.auth" => { "provider" => "facebook", "uid" => "12345", "extra" => { "user_hash" => { "email" => "ghost@nobody.com" } } } }
+    env = { "omniauth.auth" => { "provider" => "facebook", "uid" => "12345", "extra" => { "user_hash" => { "email" => "johnd@test.com" } } } }
+    @controller.stub!(:env).and_return(env)
+  end
+  
+  def stub_fb_auth_w_conflicting_email
+    # inspired by https://gist.github.com/792715
+    # See https://github.com/plataformatec/devise/issues/closed#issue/608
+    request.env["devise.mapping"] = Devise.mappings[:person]
+    env = { "omniauth.auth" => { "provider" => "facebook", "uid" => "12345", "extra" => { "user_hash" => { "email" => "johnd-different-email@test.com" } } } }
     @controller.stub!(:env).and_return(env)
   end
   
@@ -20,7 +37,7 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
   describe "facebook" do
     context "logged in and linking account with facebook" do
       def given_a_registered_user
-        @person = Factory.create(:registered_user)
+        @person = Factory.create(:registered_user,:email => 'johnd@test.com')
       end
       
       context "when successfully authenticated to facebook" do
@@ -36,13 +53,25 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
         end
         
         it "should redirect to homepage" do
-          response.should redirect_to root_path
+          # response.should redirect_to root_path
+          response_should_js_redirect_to(root_path)
         end
         
         it "should display the success message" do
           flash[:notice].should == "Successfully linked your accaunt to Facebook"
         end
         
+      end
+      context "when updating with a conflicting email address" do
+        before(:each) do
+          stub_fb_auth_w_conflicting_email
+          given_a_registered_user
+          sign_in @person
+          get :facebook
+        end
+        it "should prompt the user to approve the email update with the new email in facebook or not" do
+          response_should_js_conflicting_email_prompt
+        end
       end
       context "when failed authenticating to facebook" do
         before(:each) do
@@ -57,7 +86,8 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
         end
         
         it "should redirect to homegape" do
-          response.should redirect_to root_path
+          # response.should redirect_to root_path
+          response_should_js_redirect_to(root_path)
         end
         
         it "should display failed to link message" do
@@ -93,7 +123,8 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
         end
       
         it "should redirect to homepage" do
-          response.should redirect_to root_path
+          # response.should redirect_to root_path
+          response_should_js_redirect_to(root_path)
         end
         
         it "should display successful login using facebook" do  

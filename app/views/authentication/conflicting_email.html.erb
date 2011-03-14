@@ -1,0 +1,14 @@
+<div class="suggest-auth conflicting-email" id="suggest-auth-facebook">
+  <h2>Your email in Facebook is Different than the one in Civic Commons</h2>
+  <p>
+    Currently, your email is <%= current_person.email %>.<br/>
+    On Facebook, your email is <%= session[:other_email] %>
+  </p>
+  <h3>
+    Do you want to use the email in Facebook?
+  </h3>
+  <p class="fb-cnct-links">
+    <%= link_to "Yes", '', :class => 'overwrite-email'  %>
+    <%= link_to "No, just use my existing email",'', :class => 'cancel-overwrite-email' %>
+  </p>
+</div>

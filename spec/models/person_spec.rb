@@ -242,5 +242,23 @@ describe Person do
         @person.facebook_authenticated?.should be_false 
       end
     end
+    describe "conflicting_email?" do
+      def given_a_normal_person
+        @person = Factory.build(:normal_person, :email => 'johnd@test.com')
+      end
+      it "should return false if other email is blank?" do
+        given_a_normal_person
+        @person.conflicting_email?(nil).should be_false
+        @person.conflicting_email?('').should be_false
+      end
+      it "should return false if other_email is the same as existing email" do
+        given_a_normal_person
+        @person.conflicting_email?('JohnD@Test.com').should be_false        
+      end
+      it "should return true if other_email is same NOT the same as existing email " do
+        given_a_normal_person
+        @person.conflicting_email?('johnd.different.email@test.com').should be_true                
+      end
+    end
   end
 end

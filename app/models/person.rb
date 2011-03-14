@@ -158,6 +158,14 @@ class Person < ActiveRecord::Base
     end
   end
   
+  def conflicting_email?(other_email)
+    if other_email.blank? || (other_email.to_s.downcase.strip == email.to_s.downcase.strip)
+      false
+    else
+      true
+    end
+  end
+  
   # Overiding Devise::Models::DatabaseAuthenticatable
   # due to needing to set encrypted_password to blank, so that it doesn't error out when it is set to nil
   def valid_password?(password)
