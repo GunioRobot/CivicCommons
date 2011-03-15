@@ -37,8 +37,7 @@ private
   def successfully_linked_to_facebook
     flash[:notice] = I18n.t "devise.omniauth_callbacks.linked_success", :kind => "Facebook"
     # sign_in_and_redirect current_person, :event => :authentication, :bypass => true
-    
-    render_js_redirect_to redirect_location(:person, current_person)
+    render_js_fb_linking_success
   end
   
   def successfully_linked_but_conflicting_email
@@ -57,8 +56,18 @@ private
     text = options.delete(:text) || 'Redirecting back to CivicCommons....'
     render :text => "#{text}<script type='text/javascript'>
       if(window.opener) {
-        //window.close();
         window.opener.$.colorbox({href:'#{conflicting_email_path}',opacity:0.5, onComplete: function(){
+          window.close();
+        }});
+        }
+      </script>"
+  end
+  
+  def render_js_fb_linking_success(options={})
+    text = options.delete(:text) || 'Redirecting back to CivicCommons....'
+    render :text => "#{text}<script type='text/javascript'>
+      if(window.opener) {
+        window.opener.$.colorbox({href:'#{fb_linking_success_path}',opacity:0.5, onComplete: function(){
           window.close();
         }});
         }

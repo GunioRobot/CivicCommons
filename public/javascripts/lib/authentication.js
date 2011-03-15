@@ -19,13 +19,13 @@ jQuery(function ($) {
     */
     $('.fb-cnct-links a.overwrite-email').live('click',function(){
        $.post($(this).attr('href'),function(){
-         $.colorbox.close();
+         $.colorbox({href:'/authentication/fb_linking_success'});
        });
       return false;
     });
     
     $('.fb-cnct-links a.cancel-overwrite-email').live('click',function(){
-      $.colorbox.close();
+      $.colorbox({href:'/authentication/fb_linking_success'});
       return false;
     });
     

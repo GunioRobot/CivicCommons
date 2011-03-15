@@ -20,4 +20,8 @@ class AuthenticationController < ApplicationController
       render :text => current_person.errors.full_messages, :status => :unprocessable_entity
     end
   end
+  
+  def fb_linking_success
+    render :layout => false
+  end
 end

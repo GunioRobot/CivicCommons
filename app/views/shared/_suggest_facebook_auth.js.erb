@@ -2,7 +2,7 @@
   $(document).ready(function() {
     setTimeout(function(){ 
         $.colorbox({opacity:0.5, html:'<%= escape_javascript(render :partial => "/shared/suggest_facebook_auth.html") %>'})
-        $('a.decline-facebook-auth, div#cboxClose').click(function(){
+        $('a.decline-facebook-auth').click(function(){
           $.post('<%= decline_fb_auth_path %>')
           $.colorbox.close();
           return false;

@@ -6,8 +6,8 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
     response.should contain "window.opener.location = '#{path}'"
   end
   
-  def response_should_js_conflicting_email_prompt
-    response.should contain "window.opener.$.colorbox({href:'#{conflicting_email_path}'"
+  def response_should_js_open_colorbox(path)
+    response.should contain "window.opener.$.colorbox({href:'#{path}'"
   end
   
   def stub_successful_auth
@@ -52,9 +52,8 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
           @person.facebook_authenticated?.should be_true
         end
         
-        it "should redirect to homepage" do
-          # response.should redirect_to root_path
-          response_should_js_redirect_to(root_path)
+        it "should display Facebook linking success modal" do
+          response_should_js_open_colorbox(fb_linking_success_path)
         end
         
         it "should display the success message" do
@@ -70,7 +69,7 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
           get :facebook
         end
         it "should prompt the user to approve the email update with the new email in facebook or not" do
-          response_should_js_conflicting_email_prompt
+          response_should_js_open_colorbox(conflicting_email_path)
         end
       end
       context "when failed authenticating to facebook" do
