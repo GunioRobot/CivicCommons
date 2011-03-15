@@ -13,6 +13,11 @@ class AuthenticationController < ApplicationController
   end
   
   def update_conflicting_email
-    redirect_to :back
+    if !session[:other_email].blank? && current_person.update_attribute(:email, session[:other_email]) 
+      session[:other_email] = nil
+      render :nothing => true, :status => :ok
+    else
+      render :text => current_person.errors.full_messages, :status => :unprocessable_entity
+    end
   end
 end

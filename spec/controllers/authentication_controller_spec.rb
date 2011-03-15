@@ -1,10 +1,11 @@
 require 'spec_helper'
 
 describe AuthenticationController do
+  def mock_person(stubs={})
+    @mock_person ||= mock_model(Person, stubs).as_null_object
+  end
+  
   context "POST decline_fb_auth" do
-    def mock_person(stubs={})
-      @mock_person ||= mock_model(Person, stubs).as_null_object
-    end
     
     before(:each) do
       @person = mock_person
@@ -26,4 +27,45 @@ describe AuthenticationController do
     end
     
   end
+  context "Get conflicting_email" do
+    before(:each) do
+      @person = mock_person
+      @controller.stub(:current_person).and_return(@person)
+    end
+    
+    it "should render no layout" do
+      pending('need to test rendering no layout')
+      @controller.should_receive(:render).with({:layout=>false})
+      get :conflicting_email
+    end
+  end
+
+  context "PUT update_conflicting_email" do
+    before(:each) do
+      @person = mock_person
+      @controller.stub(:current_person).and_return(@person)
+    end
+    
+    it "should update current person's email if session[:other_email] is not blank" do
+      session[:other_email] = 'johnd@test.com'
+      @person.should_receive(:update_attribute).with(:email, 'johnd@test.com').and_return(true)
+      put :update_conflicting_email
+      response.should be_ok
+    end
+    
+    it "should clear the session[:other_email]" do
+      session[:other_email] = 'johnd@test.com'
+      put :update_conflicting_email
+      session[:other_email].should be_nil
+    end
+    
+    it "should not update current person's email if session[:other_email] is blank" do
+      @person.should_not_receive(:update_attribute)
+      put :update_conflicting_email
+      response.status.should == 422
+    end
+    
+  end
+
+  
 end

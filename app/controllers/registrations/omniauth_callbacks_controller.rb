@@ -49,6 +49,7 @@ private
   def successful_authentication(authentication)
     flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"      
     # sign_in_and_redirect authentication.person, :event => :authentication
+    sign_in authentication.person, :event => :authentication
     render_js_redirect_to redirect_location(:person, authentication.person)
   end
   

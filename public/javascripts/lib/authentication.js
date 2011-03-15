@@ -8,9 +8,26 @@ jQuery(function ($) {
   }
 
   $(document).ready(function() {
+    
     $("a.createacct-link.facebook-auth, a.connectacct-link.facebook-auth").live('click', function(e) {
       popupCenter($(this).attr("href"), $(this).attr("data-width"), $(this).attr("data-height"), "authPopup");
       e.stopPropagation(); return false;
-    });    
+    });
+    
+    /*
+      conflicting_email modal dialog
+    */
+    $('.fb-cnct-links a.overwrite-email').live('click',function(){
+       $.post($(this).attr('href'),function(){
+         $.colorbox.close();
+       });
+      return false;
+    });
+    
+    $('.fb-cnct-links a.cancel-overwrite-email').live('click',function(){
+      $.colorbox.close();
+      return false;
+    });
+    
   });
 });

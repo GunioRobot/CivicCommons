@@ -11,8 +11,8 @@ describe AuthenticationController do
       { get: "/authentication/conflicting_email" }.should route_to(controller: "authentication", action: "conflicting_email")
     end
 
-    it "recognizes and generates PUT #conflicting_email" do
-      { put: "/authentication/conflicting_email" }.should route_to(controller: "authentication", action: "update_conflicting_email")
+    it "recognizes and generates POST #conflicting_email" do
+      { post: "/authentication/conflicting_email" }.should route_to(controller: "authentication", action: "update_conflicting_email")
     end
 
   end
