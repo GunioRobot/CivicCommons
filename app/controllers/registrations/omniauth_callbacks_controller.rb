@@ -49,7 +49,7 @@ private
     flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"      
     # sign_in_and_redirect authentication.person, :event => :authentication
     sign_in authentication.person, :event => :authentication
-    render_js_redirect_to redirect_location(:person, authentication.person)
+    render_js_redirect_to redirect_location(:person, authentication.person), :text => 'Logging in to CivicCommons with Facebook...'
   end
   
   def render_js_conflicting_email(options={})
