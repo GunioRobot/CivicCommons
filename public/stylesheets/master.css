@@ -316,8 +316,8 @@ fieldset.footer {margin-bottom: 2em;}
 
 /*- Facebook Modal Styles ----------*/
 
-div.suggest-auth {padding: 25px 20px;}
-div.suggest-auth h2 {
+div.suggest-auth, div.fb-auth.linking-success {padding: 25px 20px;}
+div.suggest-auth h2, div.fb-auth.linking-success h2 {
 border-bottom: 1px solid #d6d6d6;
 margin-bottom: 12px;
 padding-bottom: 12px;
@@ -1660,19 +1660,3 @@ visibility: hidden;
 /* IE7 */
 *:first-child+html #wrapper, *:first-child+html #header, *:first-child+html .feature, *:first-child+html div.tab-strip ul, *:first-child+html div.tab-area, *:first-child+html #nav, #header-wrapper, *:first-child+html .section, *:first-child+html .content-container, *:first-child+html .photobank, *:first-child+html div.three-col, *:first-child+html div.three-col-sm, *:first-child+html .form-block, *:first-child+html .offset-1, *:first-child+html .offset-2, *:first-child+html form, *:first-child+html .convo-utility, *:first-child+html ul.social-media, *:first-child+html div.two-col, *:first-child+html div.two-col-sm, *:first-child+html .conversations, *:first-child+html div.convo-popup, *:first-child+html .pagination p, *:first-child+html #header-utility, *:first-child+html .convo-create, *:first-child+html p.fb-cnct-links {zoom: 1;}
 *:first-child+html .group {zoom: 1;}
-
-/*-----------------------------------------------
-=Styles for unsubscribe page
------------------------------------------------*/
-.expander {
-  min-height: 600px;
-}
-
-.confirmation {
-  line-height: 2.5em;
-}
-
-
-form.button_to {
-  float: left;
-}
