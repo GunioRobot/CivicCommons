@@ -32,12 +32,34 @@ module AvatarHelper
     avatar_profile(person, 50)
   end
 
-  def profile_image(person, size=20)
-    image_tag person.avatar.url(:standard), alt: person.name, height: size, width: size, title: person.name
+  def local_profile_image(person, size=20, options = {})
+    css_class = options.delete(:class)
+    image_tag person.avatar.url(:standard), alt: person.name, height: size, width: size, title: person.name, class: css_class
+  end
+  
+  # Use this one if you want to display an image_tag for the profile.
+  def profile_image(person, size=20, options = {})
+    if person.facebook_authenticated? && !person.avatar?
+      facebook_profile_image(person, size, options)
+    else
+      local_profile_image(person, size, options)
+    end
+  end  
+  
+  # Gets image from facebook graph
+  # https://graph.facebook.com/#{uid}/picture
+  # optional params: type=small|normal|large
+  def facebook_profile_image(person, size = 20, options = {})
+    type = options.delete(:type) || :normal
+    css_class = options.delete(:class)
+    if person.facebook_authenticated?
+      image_tag person.facebook_profile_pic_url(type), alt: person.name, height: size, width: size, title: person.name, class: css_class
+    end
   end
 
   def loggedin_image(person, size=40)
-    image_tag person.avatar.url(:standard), alt: person.name, class: 'callout', height: size, width: size
+    # image_tag person.avatar.url(:standard), alt: person.name, class: 'callout', height: size, width: size
+    profile_image(person, size, :class => 'callout')
   end
 
   def loggedout_image(size=40)
@@ -61,7 +83,6 @@ module AvatarHelper
   def link_to_settings(person)
     link_to "Settings", secure_edit_user_url(person), title: "Profile Settings", class: 'user-link'
   end
-
 
   # Creates an image_tag for a particular person
   # options includes options passed along to image_tag along with

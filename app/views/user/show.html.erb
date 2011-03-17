@@ -4,7 +4,7 @@
 		<div class="content-container">
 			<div class="main-content">
 				<div class="offset-1 profile-mast">
-          <%= image_tag @user.avatar.url(:standard), alt: @user.name, class: 'callout' %>
+          <%= profile_image(@user, 70, class: 'callout', type: :normal) %>
           <h1><%= @user.name %></h1>
 				</div>
 			</div>

@@ -46,11 +46,11 @@ class UserController < ApplicationController
   @person.avatar = nil
   if @person.save
     respond_to do |format|
-      format.js { render :json => { :avatarUrl => @person.avatar.url } }
+      format.js { render :json => { :avatarUrl => ( @person.facebook_authenticated? && !@person.avatar? ? @person.facebook_profile_pic_url : @person.avatar.url )} }
     end
   else
     respond_to do |format|
-      format.js { render :status => 500 }
+      format.js { render :nothing => true, :status => 500 }
     end
   end
  end

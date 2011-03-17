@@ -24,9 +24,9 @@
             <div class="curr_image form-label-offset">
               <span class="title">Current Image</span>
               <a id="profileImage" href="<%= user_path(@person) %>">
-                <%= image_tag @person.avatar.url(:standard), alt: @person.name, class: 'callout picture' %>
+                <%= profile_image @person, 70, class: 'callout picture' %>
               </a>
-              <%= link_to "Remove Picture", destroy_avatar_user_path(@person), id: "delete", remote: true, method: :delete, confirm: "Are you sure?" %>
+              <%= link_to "Remove Picture", destroy_avatar_user_path(@person), id: "delete", remote: true, method: :delete, confirm: "Are you sure?" if @person.avatar? %>
             </div>
           </div>
        </fieldset>
@@ -57,3 +57,5 @@
   </div>
   <%= javascript_include_tag "lib/users/edit" %>
 <% end %>
+
+

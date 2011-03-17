@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'devise'
 require 'devise/test_helpers'
 
 describe 'layouts/application.html.erb' do
@@ -7,6 +6,7 @@ describe 'layouts/application.html.erb' do
     @person = stub_model(Person,
       :facebook_authenticated? => true
     )
+    @view.stub(:facebook_profile_image).and_return('facebook-profile-image-here')
     @view.stub(:current_person).and_return(@person)  
     @view.stub(:resource).and_return(@person)
     @view.stub(:resource_name).and_return('person')

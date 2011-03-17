@@ -1,5 +1,5 @@
 <li id="contribution-<%= contribution.id %>" class='offset-1'>
-  <%= avatar_tag(contribution.person, :style_name => :standard, :class => "callout", :width => 40, :height => 40) %>
+  <%= profile_image(contribution.person, 40, :class => 'callout') %>
   <p><strong><%= link_to contribution.person.name, user_path(contribution.person) %></strong> suggests:</p>
   <p><%= contribution.content %></p>
   <p><%= link_to 'Delete', contribution_path(contribution), :class => 'delete button', :remote => true, :method => :delete, :confirm => "Are you sure you want to delete this?" if contribution.editable_by?(current_person) %></p>
