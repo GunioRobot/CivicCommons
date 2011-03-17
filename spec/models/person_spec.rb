@@ -260,5 +260,25 @@ describe Person do
         @person.conflicting_email?('johnd.different.email@test.com').should be_true                
       end
     end
+    describe "facebook_profile_pic_url" do
+      def given_a_normal_person_with_facebook_auth
+        @person = Factory.build(:normal_person, :email => 'johnd@test.com')
+        @authentication = Factory.build(:facebook_authentication, :uid => 12345)
+        @person.link_with_facebook(@authentication)
+      end
+
+      it "should return the correct picture url of Facebook" do
+        given_a_normal_person_with_facebook_auth
+        @person.facebook_profile_pic_url.should == 'https://graph.facebook.com/12345/picture?type=normal'
+      end
+      it "should return the correct type on the picture url of Facebook" do
+        given_a_normal_person_with_facebook_auth
+        @person.facebook_profile_pic_url(:large).should == 'https://graph.facebook.com/12345/picture?type=large'
+      end
+      it "should return nil if user has not been authenticated with fb" do
+         @person = Factory.build(:normal_person, :email => 'johnd@test.com')
+         @person.facebook_profile_pic_url.should be_nil
+      end
+    end
   end
 end

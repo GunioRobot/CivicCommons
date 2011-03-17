@@ -145,6 +145,12 @@ class Person < ActiveRecord::Base
     newly_confirmed? ? true : false
   end
   
+  # https://graph.facebook.com/#{uid}/picture
+  # optional params: type=small|normal|large
+  def facebook_profile_pic_url(type = :normal)
+    "https://graph.facebook.com/#{facebook_authentication.uid}/picture?type=#{type}" if facebook_authentication && facebook_authentication.id
+  end
+  
   def facebook_authenticated?
     !facebook_authentication.blank?
   end
