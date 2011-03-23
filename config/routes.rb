@@ -17,19 +17,6 @@ Civiccommons::Application.routes.draw do
   #Application Root
   root to: "homepage#show"
 
-  #Devise Routes
-  devise_for :people,
-             :controllers => { :registrations => 'registrations', :confirmations => 'confirmations', :sessions => 'sessions', :omniauth_callbacks => "registrations/omniauth_callbacks"},
-             :path_names => { :sign_in => 'login', :sign_out => 'logout', :password => 'secret', :confirmation => 'verification', :registration => 'register', :sign_up => 'new' }
-
-  devise_scope :person do
-    match '/people/ajax_login', :to=>'sessions#ajax_create', :via=>[:post]
-  end
-
-  constraints FilterConstraint do
-    get 'conversations/:filter', to: 'conversations#filter', as: 'conversations_filter'
-  end
-
 #Custom Matchers
   #authentication
   post '/authentication/decline_fb_auth',              to: 'authentication#decline_fb_auth',                 as: 'decline_fb_auth'
@@ -77,9 +64,9 @@ Civiccommons::Application.routes.draw do
   get '/jobs',              to: 'static_pages#jobs'
   get '/careers',           to: 'static_pages#jobs'
 
- #Devise Routes
+#Devise Routes
   devise_for :people,
-             :controllers => { :registrations => 'registrations', :confirmations => 'confirmations', :sessions => 'sessions' },
+             :controllers => { :registrations => 'registrations', :confirmations => 'confirmations', :sessions => 'sessions', :omniauth_callbacks => "registrations/omniauth_callbacks"},
              :path_names => { :sign_in => 'login', :sign_out => 'logout', :password => 'secret', :confirmation => 'verification', :registration => 'register', :sign_up => 'new' }
 
   devise_scope :person do
