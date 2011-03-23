@@ -201,8 +201,8 @@ ActiveRecord::Schema.define(:version => 20110310021638) do
     t.boolean  "marketable"
     t.datetime "marketable_at"
     t.text     "bio"
-    t.boolean  "daily_digest",                        :default => true,  :null => false
     t.boolean  "declined_fb_auth"
+    t.boolean  "daily_digest",                        :default => true,  :null => false
   end
 
   add_index "people", ["email"], :name => "index_people_on_email", :unique => true

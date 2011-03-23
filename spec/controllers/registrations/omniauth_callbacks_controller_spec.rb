@@ -123,7 +123,7 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
       
         it "should redirect to homepage" do
           # response.should redirect_to root_path
-          response_should_js_redirect_to(root_path)
+          response_should_js_redirect_to(root_url)
         end
         
         it "should display successful login using facebook" do  
