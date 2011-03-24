@@ -51,10 +51,6 @@ class Person < ActiveRecord::Base
                                     :message => "Not a valid image file."
   process_in_background :avatar
 
-  def avatar_exists
-    self.avatar.exists?
-  end
-
   scope :participants_of_issue, lambda{ |issue|
       joins(:conversations => :issues).where(['issue_id = ?',issue.id]).select('DISTINCT(people.id),people.*') if issue
     }
@@ -148,7 +144,7 @@ class Person < ActiveRecord::Base
   # https://graph.facebook.com/#{uid}/picture
   # optional params: type=small|normal|large
   def facebook_profile_pic_url(type = :normal)
-    "https://graph.facebook.com/#{facebook_authentication.uid}/picture?type=#{type}" if facebook_authentication && facebook_authentication.id
+    "https://graph.facebook.com/#{facebook_authentication.uid}/picture?type=#{type}" if facebook_authenticated?
   end
   
   def facebook_authenticated?

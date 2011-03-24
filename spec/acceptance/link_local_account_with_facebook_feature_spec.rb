@@ -10,39 +10,21 @@ feature "8457517 link local account with facebook", %q{
   before do
     login_page.sign_out
   end
-  
-  let :facebook_auth_page do
-    FacebookAuthPage.new(page)
-  end
-  
-  let :login_page do
-    LoginPage.new(page)
-  end
-  
-  let :settings_page do
-    SettingsPage.new(page)
-  end
-  
-  let :conflicting_email_page do
-    ConflictingEmailPage.new(page)
-  end
-  
-  let :fb_linking_success_page do
-    FbLinkingSuccessPage.new(page)
-  end
-  
-  let :suggest_facebook_auth_page do
-    SuggestFacebookAuthPage.new(page)
-  end
+
+  let (:facebook_auth_page)         { FacebookAuthPage.new(page) }
+  let (:login_page)                 { LoginPage.new(page) }
+  let (:settings_page)              { SettingsPage.new(page) }
+  let (:conflicting_email_page)     { ConflictingEmailPage.new(page) }
+  let (:fb_linking_success_page)    { FbLinkingSuccessPage.new(page) }
+  let (:suggest_facebook_auth_page) { SuggestFacebookAuthPage.new(page) }
   
   def response_should_js_redirect_to(path)
     page.should contain "window.opener.location = '#{path}'"
   end
 
   def response_should_js_open_colorbox(path)
-    page.should contain "window.opener.$.colorbox({href:'#{path}'"
+    page.should contain "window.opener.$.colorbox({href:'#{path}'" 
   end
-  
 
   context "When I have not linked my account to Facebook" do
     
@@ -51,7 +33,7 @@ feature "8457517 link local account with facebook", %q{
     end
     
     def given_a_registered_user_for_conflicting_fb_email
-      @person = Factory.create(:registered_user, :email => "johnd-conflicting-email@test.com")
+      @person = Factory.create(:registered_user, :email => "johnd-conflicting-email@test.com") 
     end
     
     scenario "I should be allowed to resolve my conflicting email when I'm linking with Facebook" do
@@ -175,7 +157,7 @@ feature "8457517 link local account with facebook", %q{
       # And I should not have my name on the site(because I haven't logged in yet)
       page.should_not have_content "John Doe"
       
-      # When I sign in
+      # When I sign in using Facebook
       facebook_auth_page.sign_in
       
       # Then it should give me a javascript to redirect me to the homepage
@@ -202,6 +184,7 @@ feature "8457517 link local account with facebook", %q{
       # Then I should not be able to login
       page.should have_content "Invalid email or password."
     end
+    
   end
 
   context "Facebook profile picture" do
