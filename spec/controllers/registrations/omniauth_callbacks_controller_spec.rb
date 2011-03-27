@@ -14,7 +14,8 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
     # inspired by https://gist.github.com/792715
     # See https://github.com/plataformatec/devise/issues/closed#issue/608
     request.env["devise.mapping"] = Devise.mappings[:person]
-    env = { "omniauth.auth" => { "provider" => "facebook", "uid" => "12345", "extra" => { "user_hash" => { "email" => "johnd@test.com" } } } }
+    env = { "omniauth.auth" => { "provider" => "facebook", "uid" => "12345", "extra" => { "user_hash" => { "email" => "johnd@test.com" } } }, 
+            "omniauth.origin" => conversations_path}
     @controller.stub!(:env).and_return(env)
   end
   
@@ -121,9 +122,8 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
           get :facebook
         end
       
-        it "should redirect to homepage" do
-          # response.should redirect_to root_path
-          response_should_js_redirect_to(root_url)
+        it "should redirect to the previous page" do
+          response_should_js_redirect_to(conversations_path)
         end
         
         it "should display successful login using facebook" do  

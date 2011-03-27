@@ -44,7 +44,7 @@ protected
   end
 
   def after_sign_in_path_for(resource_or_scope)
-    if session[:previous] && session[:previous].match(/register\/new/).nil?
+    if session[:previous] && session[:previous].match(%r[register/new|people/login]).nil?
       session[:previous]
     elsif session[:link]
       new_link_path
