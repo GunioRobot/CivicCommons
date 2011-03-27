@@ -269,7 +269,7 @@ describe Person do
 
       it "should return the correct picture url of Facebook" do
         given_a_normal_person_with_facebook_auth
-        @person.facebook_profile_pic_url.should == 'https://graph.facebook.com/12345/picture?type=normal'
+        @person.facebook_profile_pic_url.should == 'https://graph.facebook.com/12345/picture?type=square'
       end
       it "should return the correct type on the picture url of Facebook" do
         given_a_normal_person_with_facebook_auth

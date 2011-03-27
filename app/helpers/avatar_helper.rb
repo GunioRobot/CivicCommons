@@ -48,9 +48,10 @@ module AvatarHelper
   
   # Gets image from facebook graph
   # https://graph.facebook.com/#{uid}/picture
-  # optional params: type=small|normal|large
+  # optional params: type=small|square|large
+  # square (50x50), small (50 pixels wide, variable height), and large (about 200 pixels wide, variable height):
   def facebook_profile_image(person, size = 20, options = {})
-    type = options.delete(:type) || :normal
+    type = options.delete(:type) || :square
     css_class = options.delete(:class)
     if person.facebook_authenticated?
       image_tag person.facebook_profile_pic_url(type), alt: person.name, height: size, width: size, title: person.name, class: css_class

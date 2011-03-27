@@ -142,8 +142,9 @@ class Person < ActiveRecord::Base
   end
   
   # https://graph.facebook.com/#{uid}/picture
-  # optional params: type=small|normal|large
-  def facebook_profile_pic_url(type = :normal)
+  # optional params: type=small|square|large
+  # square (50x50), small (50 pixels wide, variable height), and large (about 200 pixels wide, variable height):
+  def facebook_profile_pic_url(type = :square)
     "https://graph.facebook.com/#{facebook_authentication.uid}/picture?type=#{type}" if facebook_authenticated?
   end
   

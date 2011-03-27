@@ -90,7 +90,7 @@ describe AvatarHelper do
       @auth = mock_model(Authentication, :uid => 12345)
       @me.stub(:facebook_authentication).and_return(@auth)
       @me.stub(:facebook_authenticated?).and_return(true)
-      facebook_profile_image(@me, 80).should == "<img alt=\"My Self\" height=\"80\" src=\"https://graph.facebook.com/12345/picture?type=normal\" title=\"My Self\" width=\"80\" />"
+      facebook_profile_image(@me, 80).should == "<img alt=\"My Self\" height=\"80\" src=\"https://graph.facebook.com/12345/picture?type=square\" title=\"My Self\" width=\"80\" />"
     end
 
     it "should return nil display anything if person has no facebook auth" do
