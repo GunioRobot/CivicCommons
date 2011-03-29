@@ -18,7 +18,10 @@ describe AuthenticationController do
     it "recognizes and generates GET #conflicting_email" do
       { get: '/authentication/fb_linking_success' }.should route_to(controller: "authentication", action: "fb_linking_success")
     end
-
+    
+    it "recognizes and generates GET #registering_email_taken" do
+      { get: '/authentication/registering_email_taken' }.should route_to(controller: "authentication", action: "registering_email_taken")      
+    end
   end
 
 end

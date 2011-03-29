@@ -36,6 +36,14 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
   end
   
   describe "facebook" do
+    def mock_authentication(stubs={})
+      @mock_authentication ||= mock_model(Authentication, stubs).as_null_object
+    end
+    
+    def mock_person(stubs={})
+      @mock_person ||= mock_model(Person, stubs).as_null_object
+    end
+    
     context "logged in and linking account with facebook" do
       def given_a_registered_user
         @person = Factory.create(:registered_user,:email => 'johnd@test.com')
@@ -97,15 +105,7 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
       end
     end
     context "Not logged in and logging in using facebook" do
-      
-      def mock_authentication(stubs={})
-        @mock_authentication ||= mock_model(Authentication, stubs).as_null_object
-      end
-      
-      def mock_person(stubs={})
-        @mock_person ||= mock_model(Person, stubs).as_null_object
-      end
-      
+            
       def given_a_registered_user_w_facebook_auth
         @person = Factory.create(:registered_user)
         @authentication = Factory.build(:authentication)
@@ -130,6 +130,41 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
           flash[:notice].should == 'Successfully authorized from Facebook account.'
         end
         
+      end
+    end
+    context "creating a new account using facebook credentials" do
+      context "successfully" do
+        before(:each) do
+          stub_successful_auth
+          @controller.stub(:signed_in?).and_return(false)
+          Authentication.should_receive(:find_from_auth_hash).and_return(nil)
+          Person.stub(:create_from_auth_hash).and_return(Factory.create(:registered_user))
+          get :facebook
+        end
+
+        it "should redirect to the previous page" do
+          response_should_js_redirect_to(conversations_path)
+        end
+
+        it "should display successful login using facebook" do  
+          flash[:notice].should == 'Successfully authorized from Facebook account.'
+        end
+      end
+      context "unsuccessfully due to email already existing in the system" do
+        before(:each) do
+          stub_successful_auth
+          @controller.stub(:signed_in?).and_return(false)
+          Authentication.should_receive(:find_from_auth_hash).and_return(nil)
+          @mock_person = mock_person
+          @mock_person.stub(:valid?).and_return(false)
+          Person.stub(:create_from_auth_hash).and_return(@mock_person)
+          get :facebook
+        end
+
+        it "should open a colorbox that tells user to login using facebook instead" do
+          response_should_js_open_colorbox(registering_email_taken_path)
+        end
+
       end
     end
   end

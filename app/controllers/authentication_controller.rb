@@ -1,5 +1,5 @@
 class AuthenticationController < ApplicationController
-  before_filter :require_user
+  before_filter :require_user, :except => [:registering_email_taken]
   def decline_fb_auth
     if current_person.update_attribute(:declined_fb_auth, true)
       render :nothing => true, :status => :ok
@@ -9,6 +9,10 @@ class AuthenticationController < ApplicationController
   end
   
   def conflicting_email
+    render :layout => false
+  end
+  
+  def registering_email_taken
     render :layout => false
   end
   

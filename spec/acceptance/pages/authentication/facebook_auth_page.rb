@@ -13,13 +13,13 @@ class FacebookAuthPage
   end
 
   def sign_in
-    @page.click_link_or_button 'Sign in with Facebook'
     stub_omniauth
+    @page.click_link_or_button 'Sign in with Facebook'
   end
   
   def link_account
-    @page.click_link_or_button "Link my account with Facebook"
     stub_omniauth 
+    @page.click_link_or_button "Link my account with Facebook"
   end
   
   def click_connect_with_facebook

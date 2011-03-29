@@ -11,11 +11,11 @@ class Person < ActiveRecord::Base
          :confirmable, :lockable,
          :omniauthable
 
-  attr_accessor :organization_name, :send_welcome
+  attr_accessor :organization_name, :send_welcome, :create_from_auth
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :first_name, :last_name, :email, :password, :password_confirmation, :bio, :top, :zip_code, :admin, :validated,
-                  :avatar, :remember_me, :daily_digest
+                  :avatar, :remember_me, :daily_digest, :create_from_auth
 
   has_one :facebook_authentication, :class_name => 'Authentication', :conditions => {:provider => 'facebook'}
   has_many :authentications, :dependent => :destroy
@@ -28,7 +28,7 @@ class Person < ActiveRecord::Base
   has_many :contributed_issues, :through => :contributions, :source => :issue, :uniq => true
 
   validates_length_of :email, :within => 6..255, :too_long => "please use a shorter email address", :too_short => "please use a longer email address"
-  validates_length_of :zip_code, :within => (5..10), :allow_empty => false, :allow_nil => false
+  validates_length_of :zip_code, :within => (5..10), :allow_empty => false, :allow_nil => false, :unless => :create_from_auth?
   validates_presence_of :name
 
   # Ensure format of salt
@@ -71,6 +71,10 @@ class Person < ActiveRecord::Base
 
   def check_to_send_welcome_email
     @send_welcome = true if newly_confirmed?
+  end
+  
+  def create_from_auth?
+    @create_from_auth || false
   end
 
   def avatar_width_for_style(style)
@@ -187,10 +191,22 @@ class Person < ActiveRecord::Base
     Rails.logger.info("Success. Added #{name} with email #{email} to email queue.")
   end
 
+  def self.create_from_auth_hash(auth_hash)
+    new_person = new(:name => auth_hash['user_info']['name'], 
+        :email => Authentication.email_from_auth_hash(auth_hash),
+        :encrypted_password => '',
+        :create_from_auth => true
+      )
+    new_person.save
+    new_person.confirm! if new_person.persisted?
+    new_person.authentications << Authentication.new_from_auth_hash(auth_hash)
+    new_person
+  end
+
 protected
 
   def password_required?
-    !persisted? || password.present? || password_confirmation.present?
+    (!persisted? && !create_from_auth?) || password.present? || password_confirmation.present?
   end
 
 end

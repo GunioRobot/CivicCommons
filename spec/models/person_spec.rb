@@ -201,6 +201,29 @@ describe Person do
   end
 
   context "Facebook authentication" do
+    before(:each) do
+      #This hash is taken from an actual facebook hash. scrubbed of personal identifiable information.
+      @auth_hash = {"provider"=>"facebook", 
+              "uid"=>"123456107280617", 
+              "credentials"=>{
+                "token"=>"1234567890"}, 
+              "user_info"=>{ "nickname"=>"profile.php?id=123456107280617", 
+                "first_name"=>"John", 
+                "last_name"=>"Doe", 
+                "name"=>"John Doe", 
+                "urls"=>{"Facebook"=>"http://www.facebook.com/profile.php?id=123456107280617", "Website"=>nil}}, 
+              "extra"=>{"user_hash"=>{
+                "id"=>"123456107280617", 
+                "name"=>"John Doe", 
+                "first_name"=>"John", 
+                "last_name"=>"Doe", 
+                "link"=>"http://www.facebook.com/profile.php?id=123456107280617", 
+                "gender"=>"male", 
+                "email"=>"johnd@test.com", 
+                "timezone"=>-5, 
+                "locale"=>"en_US", 
+                "updated_time"=>"2010-03-10T23:53:20+0000"}}}
+    end
     describe "when having a facebook authentication associated" do
       def given_a_person_with_facebook_auth
         @person = Factory.build(:normal_person)
@@ -280,5 +303,37 @@ describe Person do
          @person.facebook_profile_pic_url.should be_nil
       end
     end
+    describe "create account with facebook hash" do
+      def given_creating_account_from_auth_hash
+        @person = Person.create_from_auth_hash(@auth_hash)
+      end
+      it "should create a valid account" do
+        given_creating_account_from_auth_hash
+        @person.should be_valid
+      end
+      it "should have first name" do
+        given_creating_account_from_auth_hash
+        @person.first_name.should == 'John'
+      end
+      it "should have last name" do
+        given_creating_account_from_auth_hash
+        @person.last_name.should == 'Doe'
+      end
+      it "should have email" do
+        given_creating_account_from_auth_hash
+        @person.email.should == "johnd@test.com"
+      end
+      it "should not require to be confirmed by email" do
+        given_creating_account_from_auth_hash
+        @person.should be_confirmed
+      end
+      it "should return an invalid person record if there is an error" do
+        Factory.create(:registered_user, :email => "johnd@test.com")
+        given_creating_account_from_auth_hash
+        @person.should_not be_valid
+        @person.errors[:email].should == ["has already been taken"]
+      end
+    end
+    
   end
 end
