@@ -14,7 +14,7 @@ feature "Create New Account Using Facebook Credentials", %q{
   end
   
   def response_should_js_open_colorbox(path)
-    page.should contain "window.opener.$.colorbox({href:'#{path}'" 
+    page.should contain "$.colorbox({href:'#{path}'"
   end
   
   def given_existing_user_with_same_email
@@ -48,10 +48,10 @@ feature "Create New Account Using Facebook Credentials", %q{
     # And I should see my name there
     page.should have_content "John Doe"
     
-    # And I should see a suggestion to add zipcode link
-    #page.should have_content "Add your zipcode"
+    # And I should see a confirmation
+    response_should_js_open_colorbox(successful_registration_path)
   end
-  scenario "conflicting email" do
+  scenario "email is taken" do
     # Given there is an existing user with the same email in system
     given_existing_user_with_same_email
     
@@ -70,6 +70,5 @@ feature "Create New Account Using Facebook Credentials", %q{
     
     #And I should see the link 'Sign in with Facebook'
     page.should have_link 'Sign in with Facebook'
-    
   end
 end

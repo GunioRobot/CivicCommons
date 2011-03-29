@@ -10,5 +10,4 @@ describe 'shared/_suggest_facebook_auth.js.erb' do
     rendered.should render_template('/shared/_suggest_facebook_auth')
   end
 
-
 end

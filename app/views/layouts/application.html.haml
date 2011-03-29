@@ -133,3 +133,4 @@
           %li
             %a{ :href => '#', :id => 'rss'} RSS
 = render :partial => '/shared/suggest_facebook_auth.js' if signed_in? && !current_person.declined_fb_auth? && !current_person.facebook_authenticated?
+= render :partial => '/shared/show_colorbox.js', :locals => {:path => successful_registration_path} if flash[:successful_registration_modal]

@@ -18,10 +18,10 @@ private
   end
   
   def create_account_using_facebook_credentials
-    puts env.inspect
     person = Person.create_from_auth_hash(env['omniauth.auth'])
     if person.valid?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => "Facebook"
+      flash[:successful_registration_modal] = true
       sign_in person, :event => :authentication
       render_js_redirect_to((env['omniauth.origin'] || root_path),:text => 'Registering to CivicCommons account using your Facebook Credentials...')
     else

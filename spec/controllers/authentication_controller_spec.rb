@@ -27,16 +27,16 @@ describe AuthenticationController do
     end
     
   end
-  context "Get conflicting_email" do
+  
+  context "GET conflicting_email" do
     before(:each) do
       @person = mock_person
       @controller.stub(:current_person).and_return(@person)
     end
     
     it "should render no layout" do
-      pending('need to test rendering no layout')
-      @controller.should_receive(:render).with({:layout=>false})
       get :conflicting_email
+      response.should render_template(:layout => false)
     end
   end
 
@@ -67,5 +67,50 @@ describe AuthenticationController do
     
   end
 
+  context "GET registering_email_taken" do
+    it "should render no layout" do
+      get :registering_email_taken
+      response.should render_template(:layout => false)
+    end
+  end
+
+  context "GET conflicting_email" do
+    before(:each) do
+      @person = mock_person
+      @controller.stub(:current_person).and_return(@person)
+    end
+    
+    it "should render no layout" do
+      get :conflicting_email
+      response.should render_template(:layout => false)
+    end
+  end
+  
+  context "GET successful_registration" do
+    before(:each) do
+      @person = mock_person
+      @controller.stub(:current_person).and_return(@person)
+    end
+    
+    it "should render no layout" do
+      get :successful_registration
+      response.should render_template(:layout => false)
+    end
+  end
+  
+  context "GET fb_linking_success" do
+    before(:each) do
+      @person = mock_person
+      @controller.stub(:current_person).and_return(@person)
+    end
+    
+    it "should render no layout" do
+      get :fb_linking_success
+      response.should render_template(:layout => false)
+    end
+  end
+  
+
+  
   
 end

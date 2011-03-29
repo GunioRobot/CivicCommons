@@ -138,7 +138,7 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
           stub_successful_auth
           @controller.stub(:signed_in?).and_return(false)
           Authentication.should_receive(:find_from_auth_hash).and_return(nil)
-          Person.stub(:create_from_auth_hash).and_return(Factory.create(:registered_user))
+          Person.stub(:create_from_auth_hash).and_return(Factory.create(:registered_user))          
           get :facebook
         end
 
@@ -148,6 +148,10 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
 
         it "should display successful login using facebook" do  
           flash[:notice].should == 'Successfully authorized from Facebook account.'
+        end
+        
+        it "should set the flag to display the successful confirmation modal" do
+          flash[:successful_registration_modal].should be_true 
         end
       end
       context "unsuccessfully due to email already existing in the system" do
@@ -163,6 +167,10 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
 
         it "should open a colorbox that tells user to login using facebook instead" do
           response_should_js_open_colorbox(registering_email_taken_path)
+        end
+        
+        it "should NOT set the flag to display the successful confirmation modal" do
+          flash[:successful_registration_modal].should_not be_true 
         end
 
       end

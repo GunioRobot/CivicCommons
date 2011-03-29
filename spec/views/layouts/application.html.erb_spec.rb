@@ -12,10 +12,13 @@ describe 'layouts/application.html.erb' do
     @view.stub(:resource_name).and_return('person')
     @view.stub(:devise_mapping).and_return(Devise.mappings[:person])
   end
+  
   before(:each) do
     stub_devise
     stub_template('/shared/_suggest_facebook_auth.js.erb' => 'rendering suggest_facebook_auth.js')
+    stub_template('/shared/_show_colorbox.js.erb' => 'rendering show_colorbox.js')
   end
+  
   context 'interstitial modal' do
     it "should be displayed when user is logged in and not declined facebook auth, and have not connected to facebook" do
       @view.stub(:signed_in?).and_return(true)
@@ -46,5 +49,19 @@ describe 'layouts/application.html.erb' do
     end
     
     
+  end
+  context "successful 3rd party authentication registration" do
+    before(:each) do
+      @view.stub(:signed_in?).and_return(true)
+    end
+    it "should display the colorbox when the successful registration flag is set to true" do
+      flash[:successful_registration_modal] = true
+      render
+      rendered.should contain('rendering show_colorbox.js')
+    end
+    it "should NOT display the colorbox when the successful registration flag is NOT set" do
+      render
+      rendered.should_not contain('rendering show_colorbox.js')
+    end
   end
 end

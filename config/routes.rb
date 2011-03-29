@@ -24,6 +24,7 @@ Civiccommons::Application.routes.draw do
   post '/authentication/conflicting_email',            to: 'authentication#update_conflicting_email',        as: 'update_conflicting_email'
   get   '/authentication/fb_linking_success',          to: 'authentication#fb_linking_success',              as: 'fb_linking_success'
   get   '/authentication/registering_email_taken',     to: 'authentication#registering_email_taken',         as: 'registering_email_taken'
+  get   '/authentication/successful_registration',     to: 'authentication#successful_registration',         as: 'successful_registration'
   #Contributions
   post '/contributions/create_confirmed_contribution', to: 'contributions#create_confirmed_contribution',    as: 'create_confirmed_contribution'
   delete '/contributions/moderate/:id',                to: 'contributions#moderate_contribution',            as: 'moderate_contribution'

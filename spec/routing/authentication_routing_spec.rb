@@ -22,6 +22,11 @@ describe AuthenticationController do
     it "recognizes and generates GET #registering_email_taken" do
       { get: '/authentication/registering_email_taken' }.should route_to(controller: "authentication", action: "registering_email_taken")      
     end
+    
+    it "recognizes and generates GET #successful_registration" do
+      { get: '/authentication/successful_registration' }.should route_to(controller: "authentication", action: "successful_registration")      
+    end
+    
   end
 
 end
