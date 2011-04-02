@@ -54,12 +54,12 @@ describe 'layouts/application.html.erb' do
     before(:each) do
       @view.stub(:signed_in?).and_return(true)
     end
-    it "should display the colorbox when the successful registration flag is set to true" do
-      flash[:successful_registration_modal] = true
+    it "should display the colorbox when the successful fb registration flag is set to true" do
+      flash[:successful_fb_registration_modal] = true
       render
       rendered.should contain('rendering show_colorbox.js')
     end
-    it "should NOT display the colorbox when the successful registration flag is NOT set" do
+    it "should NOT display the colorbox when the successful fb registration flag is NOT set" do
       render
       rendered.should_not contain('rendering show_colorbox.js')
     end

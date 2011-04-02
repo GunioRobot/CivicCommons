@@ -151,7 +151,7 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
         end
         
         it "should set the flag to display the successful confirmation modal" do
-          flash[:successful_registration_modal].should be_true 
+          flash[:successful_fb_registration_modal].should be_true 
         end
       end
       context "unsuccessfully due to email already existing in the system" do
@@ -170,7 +170,7 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
         end
         
         it "should NOT set the flag to display the successful confirmation modal" do
-          flash[:successful_registration_modal].should_not be_true 
+          flash[:successful_fb_registration_modal].should_not be_true 
         end
 
       end

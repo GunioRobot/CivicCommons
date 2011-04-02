@@ -25,6 +25,8 @@ Civiccommons::Application.routes.draw do
   get   '/authentication/fb_linking_success',          to: 'authentication#fb_linking_success',              as: 'fb_linking_success'
   get   '/authentication/registering_email_taken',     to: 'authentication#registering_email_taken',         as: 'registering_email_taken'
   get   '/authentication/successful_registration',     to: 'authentication#successful_registration',         as: 'successful_registration'
+  get   '/authentication/successful_fb_registration',  to: 'authentication#successful_fb_registration',      as: 'successful_fb_registration'
+  put   '/authentication/update_account',             to: 'authentication#update_account',                  as: 'auth_update_account'
   #Contributions
   post '/contributions/create_confirmed_contribution', to: 'contributions#create_confirmed_contribution',    as: 'create_confirmed_contribution'
   delete '/contributions/moderate/:id',                to: 'contributions#moderate_contribution',            as: 'moderate_contribution'

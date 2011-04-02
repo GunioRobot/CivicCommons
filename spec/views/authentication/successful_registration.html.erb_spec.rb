@@ -8,8 +8,8 @@ describe '/authentication/successful_registration.html.erb' do
     render
   end
   
-  it "should have the current link to edit the zipcode" do
-    rendered.should have_selector 'a', :content => 'zipcode', :href => edit_user_path(@person,:anchor => 'person_zip_code')
+  it "should have congratulatory remarks" do
+    rendered.should contain 'Congratulations! Your registration is complete.'
   end
 
 end

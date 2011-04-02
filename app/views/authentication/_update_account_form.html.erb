@@ -1,0 +1,13 @@
+<%= form_for(:person, :url => auth_update_account_path, :remote => true, :html => {:id => 'ajax-auth-update-form', :method => :put}) do |f| %>
+  <fieldset class="form-group">
+    <div class="form-block">
+      <%= f.label :zip_code, 'Zipcode:' %>
+      <%= f.text_field :zip_code %>
+    </div>
+  </fieldset>
+  <fieldset class="footer">
+    <%= f.submit 'Submit', :class => 'submit' %>
+    or
+    <%= link_to 'cancel', '', :onclick => '$.colorbox.close(); return false;', :class => 'cancel' %>
+  </fieldset>
+<% end %>

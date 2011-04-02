@@ -29,5 +29,9 @@ jQuery(function ($) {
       return false;
     });
     
+    $('form#ajax-auth-update-form')
+    .live('ajax:success', function(evt, xhr, status, error){
+      $(this).html(xhr);
+    });
   });
 });

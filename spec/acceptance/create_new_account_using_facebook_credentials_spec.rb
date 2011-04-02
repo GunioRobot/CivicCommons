@@ -8,6 +8,7 @@ feature "Create New Account Using Facebook Credentials", %q{
   
   let (:facebook_auth_page) { FacebookAuthPage.new(page) }
   let (:login_page) { LoginPage.new(page) }
+  let (:successful_fb_registration_page) { SuccessfulFbRegistrationPage.new(page) }
   
   def response_should_js_redirect_to(path)
     page.should contain "window.opener.location = '#{path}'"
@@ -48,7 +49,17 @@ feature "Create New Account Using Facebook Credentials", %q{
     # And I should see my name there
     page.should have_content "John Doe"
     
-    # And I should see a confirmation
+    # And I should see an successful creation of account using Facebook credesntials, and also with ZipCode prompt
+    response_should_js_open_colorbox(successful_fb_registration_path)
+    successful_fb_registration_page.visit
+    
+    # When I enter the zipcode
+    successful_fb_registration_page.fill_in_zip_code_with('12345')
+    
+    # And I click submit
+    successful_fb_registration_page.click_submit
+    
+    # Then I should see a successful confirmation
     response_should_js_open_colorbox(successful_registration_path)
   end
   scenario "email is taken" do
