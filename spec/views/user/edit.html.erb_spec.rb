@@ -66,33 +66,4 @@ describe '/user/edit.html.erb' do
     
   end
   
-  context "Zip code alert" do
-    
-    before(:each) do
-      view.stub(:profile_image).and_return('')
-    end
-    
-    def given_a_person_with_zipcode
-      @person = stub_person
-      view.stub(:current_person).and_return(@person)
-    end
-    
-    def given_a_person_without_zipcode
-      @person = stub_person(:zip_code => nil)
-      view.stub(:current_person).and_return(@person)
-    end
-    
-    it "should alert zip code if there is no zipcode" do
-      given_a_person_without_zipcode
-      render
-      content_for(:main_body).should have_selector '.zip-code.flash-notice'
-    end
-    
-    it "should not alert zip code if there is zipcode" do
-      given_a_person_with_zipcode
-      render
-      content_for(:main_body).should_not have_selector '.zip-code.flash-notice'      
-    end
-  end
-
 end

@@ -11,6 +11,7 @@ class UserController < ApplicationController
 
   def edit
     @person = Person.find(params[:id])
+    @person.valid?(:update) #did this So that there is a validation error on the view.
   end
 
   def show

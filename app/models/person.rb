@@ -27,9 +27,11 @@ class Person < ActiveRecord::Base
   has_many :contributed_conversations, :through => :contributions, :source => :conversation, :uniq => true
   has_many :contributed_issues, :through => :contributions, :source => :issue, :uniq => true
 
-  validates_length_of :email, :within => 6..255, :too_long => "please use a shorter email address", :too_short => "please use a longer email address"
-  validates_length_of :zip_code, :within => (5..10), :allow_empty => false, :allow_nil => false, :unless => :create_from_auth?
+  validates_length_of :email, :within => 6..255, :too_long => "please use a shorter email address", :too_short => "please use a longer email address"  
+  validates_length_of :zip_code, :within => (5..10), :allow_blank => true, :allow_nil => true, :unless => :create_from_auth?
+  validates_presence_of :zip_code, :message => 'Please enter zipcode.', :unless => :create_from_auth?
   validates_presence_of :name
+  
 
   # Ensure format of salt
   # Commented out because devise 1.2.RC doesn't store password_salt column anymore, if it uses bcrypt

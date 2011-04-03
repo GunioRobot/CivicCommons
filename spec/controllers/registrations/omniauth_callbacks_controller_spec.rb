@@ -154,6 +154,7 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
           flash[:successful_fb_registration_modal].should be_true 
         end
       end
+
       context "unsuccessfully due to email already existing in the system" do
         before(:each) do
           stub_successful_auth
@@ -161,6 +162,7 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
           Authentication.should_receive(:find_from_auth_hash).and_return(nil)
           @mock_person = mock_person
           @mock_person.stub(:valid?).and_return(false)
+          @mock_person.stub_chain(:errors,:on).and_return("has already been taken")
           Person.stub(:create_from_auth_hash).and_return(@mock_person)
           get :facebook
         end
@@ -172,7 +174,26 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
         it "should NOT set the flag to display the successful confirmation modal" do
           flash[:successful_fb_registration_modal].should_not be_true 
         end
-
+      end
+      
+      context "unsuccessfuly due to other misc errors" do
+        before(:each) do
+          stub_successful_auth
+          @controller.stub(:signed_in?).and_return(false)
+          Authentication.should_receive(:find_from_auth_hash).and_return(nil)
+          @mock_person = mock_person
+          @mock_person.stub(:valid?).and_return(false)
+          Person.stub(:create_from_auth_hash).and_return(@mock_person)
+          get :facebook
+        end
+        
+        it "should redirect to back" do
+          response_should_js_redirect_to(conversations_path)
+        end
+        
+        it "should display the message 'Something went wrong, your account cannot be created'" do
+          response.should contain 'Something went wrong, your account cannot be created'
+        end
       end
     end
   end

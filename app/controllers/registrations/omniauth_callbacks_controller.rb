@@ -24,9 +24,11 @@ private
       flash[:successful_fb_registration_modal] = true
       sign_in person, :event => :authentication
       render_js_redirect_to((env['omniauth.origin'] || root_path),:text => 'Registering to CivicCommons account using your Facebook Credentials...')
-    else
+    elsif person.errors.on(:email).to_s.include?("has already been taken")
       flash[:email] = person.email
       render_js_registering_email_taken
+    else
+      render_js_redirect_to((env['omniauth.origin'] || root_path),:text => "Something went wrong, your account cannot be created")
     end
   end
   
