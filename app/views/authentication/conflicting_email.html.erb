@@ -1,11 +1,11 @@
-<div class="fb-auth conflicting-email" id="auth-facebook-conflicting-email">
+<div class="fb-auth conflicting-email fb-modal" id="auth-facebook-conflicting-email">
   <h2>Oops. Looks like you are trying to link to Facebook using a different email address than the one you signed up with.</h2>
   <p>
     The email we have for you is <%= current_person.email %>, but Facebook wants to use <%= session[:other_email] %>.
   </p>
-  <h3>
-    Do you want to switch to your Facebook email?
-  </h3>
+  <p>
+    <strong>Do you want to switch to your Facebook email?</strong>
+  </p>
   <p class="fb-cnct-links">
     <%= link_to "Yes, thanks", update_conflicting_email_path, :class => 'overwrite-email'  %>
     <%= link_to "No, please keep using the one I signed up with.",'', :class => 'cancel-overwrite-email' %>

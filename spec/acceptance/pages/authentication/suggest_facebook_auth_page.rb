@@ -13,7 +13,7 @@ class SuggestFacebookAuthPage
   end
   
   def modal
-    %q[$.colorbox({opacity:0.5, html:'<div class=\"suggest-auth facebook-auth\"]
+    %q[$.colorbox({opacity:0.5, html:'<div class=\"suggest-auth facebook-auth fb-modal\"]
   end
   
   def title

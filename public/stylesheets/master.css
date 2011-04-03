@@ -316,22 +316,23 @@ fieldset.footer {margin-bottom: 2em;}
 
 /*- Facebook Modal Styles ----------*/
 
-div.suggest-auth, div.fb-auth.linking-success, div.fb-auth.successful-registration, div.fb-auth.registering-email-taken {padding: 25px 20px;}
-div.suggest-auth h2, div.fb-auth.linking-success h2 {
+div.suggest-auth, div.fb-auth.linking-success, div.fb-auth.successful-registration, div.fb-auth.registering-email-taken, .fb-modal {padding: 25px 20px;}
+.fb-modal h2 {
 border-bottom: 1px solid #d6d6d6;
 margin-bottom: 12px;
 padding-bottom: 12px;
 }
-div.suggest-auth a.connectacct-link {
+div.suggest-auth a.connectacct-link, .fb-modal .overwrite-email {
 float: left;
 margin-left: 0;
 }
-div.suggest-auth a.decline-facebook-auth {
+div.suggest-auth a.decline-facebook-auth, .fb-modal .cancel-overwrite-email {
 display: block;
 float: right;
 padding-top: 4px;
 }
 p.fb-cnct-links {padding-top: 5px;}
+.fb-modal input.textbox {width: 7em;}
 
 /*-----------------------------------------------
 =Modular Element Styles
