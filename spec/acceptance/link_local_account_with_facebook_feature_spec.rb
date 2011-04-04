@@ -181,8 +181,8 @@ feature "8457517 link local account with facebook", %q{
       # And I try to sign in
       login_page.sign_in(@person)
       
-      # Then I should not be able to login
-      page.should have_content "Invalid email or password."
+      # Then I should not be able to login, and should display the proper message
+      page.should have_content 'You were registered using Facebook, please login with Facebook.'
     end
     
   end
