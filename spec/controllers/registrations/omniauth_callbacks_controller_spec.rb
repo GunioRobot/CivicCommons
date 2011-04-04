@@ -162,7 +162,7 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
           Authentication.should_receive(:find_from_auth_hash).and_return(nil)
           @mock_person = mock_person
           @mock_person.stub(:valid?).and_return(false)
-          @mock_person.stub_chain(:errors,:on).and_return("has already been taken")
+          @mock_person.stub(:errors).and_return({:email => "has already been taken"})
           Person.stub(:create_from_auth_hash).and_return(@mock_person)
           get :facebook
         end
