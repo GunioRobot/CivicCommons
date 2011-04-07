@@ -17,14 +17,17 @@ feature "8457517 link local account with facebook", %q{
   let (:conflicting_email_page)     { ConflictingEmailPage.new(page) }
   let (:fb_linking_success_page)    { FbLinkingSuccessPage.new(page) }
   let (:suggest_facebook_auth_page) { SuggestFacebookAuthPage.new(page) }
+  let (:forgot_password_page)       { ForgotPasswordPage.new(page) }
+  let (:fb_auth_forgot_password_modal_page) { FbAuthForgotPasswordModalPage.new(page)}
   
   def response_should_js_redirect_to(path)
     page.should contain "window.opener.location = '#{path}'"
   end
 
   def response_should_js_open_colorbox(path)
-    page.should contain "window.opener.$.colorbox({href:'#{path}'" 
+    page.should contain "$.colorbox({href:'#{path}'" 
   end
+  
 
   context "When I have not linked my account to Facebook" do
     
@@ -224,4 +227,31 @@ feature "8457517 link local account with facebook", %q{
     end
   end
   
+  context "Forgot password" do
+    def given_a_registered_user_w_facebook_auth_w_email(email)
+      @person = Factory.create(:registered_user,:email => email)
+      @facebook_auth = Factory.build(:facebook_authentication)
+      @person.link_with_facebook(@facebook_auth)
+    end
+    scenario "I should see a modal dialog prompting me to login to facebook." do
+      # Given I am a registered user with facebook account
+      given_a_registered_user_w_facebook_auth_w_email('johnd@example.com')
+      
+      # when I am on the forgot password page
+      forgot_password_page.visit
+      
+      # when I enter my email
+      forgot_password_page.enter_email('johnd@example.com')
+      
+      # when I click submit
+      forgot_password_page.click_submit
+      
+      # then I should see modal dialog prompting me to login using Facebook instead
+      response_should_js_open_colorbox(fb_auth_forgot_password_path)
+      fb_auth_forgot_password_modal_page.visit
+      
+      # then the modal should have link to sign in using facebook
+      page.should have_link "Sign in with Facebook"
+    end
+  end
 end

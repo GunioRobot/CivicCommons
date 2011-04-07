@@ -334,6 +334,33 @@ describe Person do
         @person.errors[:email].should == ["has already been taken"]
       end
     end
-    
+    describe "Change Password" do
+      def reset_email_deliveries_count
+        ActionMailer::Base.deliveries = []
+      end
+      def given_a_person_with_facebook_auth
+        @person = Factory.build(:registered_user, :email => 'johnd@example.com')
+        @authentication = Factory.build(:authentication, :provider => 'facebook')
+        @person.link_with_facebook(@authentication)
+      end
+      
+      def given_a_regular_person
+        @person = Factory.create(:registered_user, :email => 'johnd@example.com')
+      end
+      
+      it "should not send email when account is facebook authenticated" do
+        given_a_person_with_facebook_auth
+        reset_email_deliveries_count
+        Person.send_reset_password_instructions({:email => 'johnd@example.com'})
+        ActionMailer::Base.deliveries.length.should == 0
+      end
+      
+      it "should send email when it's not facebook authenticated" do
+        given_a_regular_person        
+        reset_email_deliveries_count
+        Person.send_reset_password_instructions({:email => 'johnd@example.com'})
+        ActionMailer::Base.deliveries.length.should == 1
+      end
+    end
   end
 end

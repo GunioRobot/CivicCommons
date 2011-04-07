@@ -204,6 +204,14 @@ class Person < ActiveRecord::Base
     new_person.authentications << Authentication.new_from_auth_hash(auth_hash)
     new_person
   end
+  
+  # overriding devise's recoverable
+  def self.send_reset_password_instructions(attributes={})
+    recoverable = find_or_initialize_with_errors(authentication_keys, attributes, :not_found)
+    recoverable.send_reset_password_instructions if recoverable.persisted? && !recoverable.facebook_authenticated?
+    recoverable
+  end
+  
 
 protected
 
