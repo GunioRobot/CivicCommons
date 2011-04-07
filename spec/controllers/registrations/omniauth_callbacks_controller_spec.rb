@@ -19,6 +19,16 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
     @controller.stub!(:env).and_return(env)
   end
   
+  def stub_failed_auth
+    # inspired by https://gist.github.com/792715
+    # See https://github.com/plataformatec/devise/issues/closed#issue/608
+    request.env["devise.mapping"] = Devise.mappings[:person]
+    env = { "omniauth.auth" => {}, 
+            "omniauth.origin" => conversations_path}
+    @controller.stub!(:env).and_return(env)
+  end
+  
+  
   def stub_fb_auth_w_conflicting_email
     # inspired by https://gist.github.com/792715
     # See https://github.com/plataformatec/devise/issues/closed#issue/608
@@ -198,4 +208,15 @@ describe Registrations::OmniauthCallbacksController, "handle facebook authentica
     end
   end
 
+  describe "miscelaneous failure" do
+    before(:each) do
+      controller.stub_chain(:failed_strategy,:name).and_return('Facebook')
+      I18n.stub(:t).and_return('error message here')
+    end
+    it "should display the text of the failure" do
+      stub_failed_auth
+      get :failure
+      response.should contain 'error message here'
+    end
+  end
 end

@@ -11,6 +11,10 @@ class Registrations::OmniauthCallbacksController < Devise::OmniauthCallbacksCont
       end
     end
   end
+  
+  def failure
+    render :text => "#{I18n.t('devise.omniauth_callbacks.failure', :kind => failed_strategy.name.to_s.humanize, :reason => failure_message)}"
+  end
 
 private
   def auth_popup?
